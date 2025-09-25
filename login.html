@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZAWN Login</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+        .left-panel {
+            flex: 1;
+            background-color: #041626;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .left-panel img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+        }
+        .right-panel {
+            flex: 1;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+            text-align: left;
+        }
+        h1 {
+            font-size: 50px;
+            line-height: 0.908;
+            font-weight: 300;
+            margin-bottom: 10px;
+            color: #000;
+        }
+        .subtitle {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .subtitle a {
+            color: #000;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        .input-group label {
+            display: block;
+            font-size: 18px;
+            font-weight: 400;
+            margin-bottom: 5px;
+        }
+        .input-group input {
+            width: 100%;
+            height: 50px;
+            border: 1px solid #007BFF;
+            border-radius: 15px;
+            padding: 0 15px;
+            font-size: 17px;
+            box-sizing: border-box;
+            outline: none;
+        }
+        .input-group input:focus {
+            border-color: #0056b3;
+        }
+        .submit-button {
+            width: 100%;
+            height: 50px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .submit-button:hover {
+            background-color: #0056b3;
+        }
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+            .left-panel {
+                display: none;
+            }
+            .right-panel {
+                padding: 20px;
+            }
+        }
+        /* Custom message box styles */
+        .message-box {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            padding: 25px;
+            z-index: 1000;
+            text-align: center;
+            display: none; /* Initially hidden */
+            max-width: 300px;
+        }
+        .message-box-content {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        .message-box-close {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        // Check if user is already logged in
+        if (localStorage.getItem('user')) {
+            window.location.href = '/home';
+        }
+    </script>
+    <div class="left-panel">
+        <img src="res/zawnblue.svg" alt="ZAWN Logo Placeholder">
+    </div>
+    <div class="right-panel">
+        <div class="login-container">
+            <h1>Welcome Back!</h1>
+            <p class="subtitle">Don't have an account? <a href="/register">Click here</a></p>
+            <form id="signup-form">
+                <div class="input-group">
+                    <label for="email">Enter your email or username</label>
+                    <input type="text" id="email" name="email" placeholder="email@example.com" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Enter your password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="submit-button">Proceed</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Custom Message Box -->
+    <div class="message-box" id="message-box">
+        <div class="message-box-content" id="message-text"></div>
+        <button class="message-box-close" id="close-message-box">OK</button>
+    </div>
+
+    <script>
+        // Get references to form elements and the message box
+        const form = document.getElementById('signup-form');
+        const emailInput = document.getElementById('email');
+        const messageBox = document.getElementById('message-box');
+        const messageText = document.getElementById('message-text');
+        const closeMessageBoxBtn = document.getElementById('close-message-box');
+
+        // Function to show the custom message box
+        function showMessage(message) {
+            messageText.textContent = message;
+            messageBox.style.display = 'block';
+        }
+
+        // Hide the message box when the OK button is clicked
+        closeMessageBoxBtn.addEventListener('click', () => {
+            messageBox.style.display = 'none';
+        });
+
+        // Add a submit event listener to the form
+        form.addEventListener('submit', (event) => {
+            // Prevent the default form submission
+            event.preventDefault();
+
+            // Check if a user exists in localStorage
+            if (localStorage.getItem('user')) {
+                // If they exist, redirect to home.html
+                window.location.href = 'home.html';
+            } else {
+                // If they don't exist, display an error message
+                showMessage("No existing user. Try again.");
+            }
+        });
+    </script>
+</body>
+</html>

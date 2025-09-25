@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZAWN | Dashboard</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #F8F8F8;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        #myNav {
+            width: 100%;
+            height: 80px;
+            border-bottom: #333;
+            color: rgb(0, 0, 0);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        #logo {
+            margin-top: 20px;
+            margin-left: 20px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            font-weight: 500;
+            font-size: 18px;
+            margin-right: 30px;
+        }
+
+        a:hover {
+            color: #007BFF;
+        }
+
+        #links {
+            margin-top: 35px;
+            margin-right: 20px;
+            display: flex;
+            gap: 42px;
+            align-items: center;
+        }
+
+        .main-content-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 30px 60px;
+            flex-grow: 1;
+        }
+
+        .main-content-left {
+            flex: 1;
+        }
+
+        h1 {
+            text-align: left;
+            color: #007BFF;
+            line-height: 0.38;
+            margin-top: 45px;
+            font-size: 45px;
+            font-weight: 550;
+        }
+
+        p {
+            font-size: 20px;
+            font-weight: 100;
+            color: #000;
+            line-height: 0.76;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .main-content-right {
+            flex: 1;
+            text-align: right;
+            margin-top: 0;
+        }
+
+        .location-bar {
+            margin-top: 45px;
+            font-size: 18px;
+            color: #093150;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            text-align: right;
+        }
+
+        .location-details {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .change-location-button {
+            background: none;
+            margin-top: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            color: #007BFF;
+            display: flex;
+            align-items: center;
+            padding: 0;
+        }
+
+        .change-location-button .material-icons {
+            font-size: 18px;
+            margin-left: 5px;
+            color: #007BFF;
+        }
+
+        .location-bar b {
+            font-weight: 600;
+            color: #000;
+        }
+
+        .location-bar em {
+            color: #484848;
+            font-style: italic;
+            font-weight: 300;
+            margin-left: 5px;
+        }
+
+        .data-row {
+            margin: 20px 60px 0 60px;
+        }
+
+        .data-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            align-items: stretch;
+        }
+
+        .data-grid-two-cols {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            align-items: stretch;
+        }
+
+        .data-box {
+            border: 1px solid black;
+            border-radius: 15px;
+            padding: 20px;
+            height:220px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .data-box-wide {
+            border: 1px solid black;
+            border-radius: 15px;
+            padding: 20px;
+            height:220px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .data-box h3,.data-box-wide .material-icons,.data-box .material-icons {
+            font-size: 32px;
+            color: #007BFF; 
+        }
+
+        .data-box h3,.data-box-wide h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #007BFF; /* A default blue */
+            margin: 10px 0 0 0;
+        }
+
+        .data-box .data-value, .data-box-wide .data-value {
+            font-size: 45px;
+            font-weight: 700;
+            margin: 10px 0;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .data-box .description {
+            font-size: 14px;
+            color: #555;
+            width:100%;
+            text-align: center;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            #myNav {
+                height: auto;
+                flex-direction: column;
+                padding-top: 10px;
+                padding-bottom: 10px;
+            }
+
+            #links {
+                margin-top: 10px;
+                margin-right: 0;
+                gap: 20px;
+            }
+
+            #logo {
+                margin-top: 0;
+                margin-left: 0;
+            }
+
+            .main-content-container {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            .main-content-left {
+                text-align: center;
+            }
+
+            .main-content-right {
+                margin-top: 20px;
+                text-align: center;
+            }
+
+            h1 {
+                font-size: 45px;
+            }
+
+            p {
+                font-size: 22px;
+            }
+
+            .data-grid, .data-grid-two-cols {
+                grid-template-columns: repeat(1, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <script>
+        // Check if user is logged in, otherwise redirect to login page
+        if (!localStorage.getItem('user')) {
+            window.location.href = '/login';
+        }
+    </script>
+    <nav id="myNav">
+        <div style="display: flex; align-items: center; width: 100%; justify-content: space-between;">
+            <div style="display: flex; align-items: center;">
+                <a href="/">
+                    <img src="res/logo.svg" id="logo" alt="Logo" style="height: 54px; margin-right: 16px; display: block;">
+                </a>
+            </div>
+            <div id="links">
+
+                <a href="/graph">Historical Charts</a>
+                <a href="#settings">Settings</a>
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-content-container">
+        <div class="main-content-left">
+            <h1>Dashboard</h1>
+            <p>Live verdicts. Fuel provenance. Grid transparency.</p>
+        </div>
+        <div class="main-content-right">
+            <div class="location-bar">
+                <span id="location-info">
+                    <b id="geo-coords">Fetching Location...</b>
+                    <em id="geo-label"></em>
+                </span>
+                <a href="/browse">
+                    <button class="change-location-button" onclick="console.log('Change Location clicked');">
+                        Change Location
+                        <span class="material-icons">edit</span>
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- First Row of Data -->
+    <div class="data-row">
+        <div class="data-grid">
+            <div class="data-box" style="background-color:#29360d;">
+                <span class="material-icons"  style="color:#f2ff00;" >cloud</span>
+                <h3 style="color:#f2ff00;">Air Quality</h3>
+                <div class="data-value"  id="aqi-value" style="color:white;">129</div>
+                <div class="description" style="color:rgb(193, 193, 193);">Current AQI and pollutants.</div>
+            </div>
+            <div class="data-box">
+                <span class="material-icons">bolt</span>
+                <h3>Carbon Intensity</h3>
+                <div class="data-value" id="carbon-intensity-value"  style="font-size: 34px;">
+
+                  
+                </div>
+                <div class="description">Grid carbon emissions status.</div>
+            </div>
+            <div class="data-box">
+                <span class="material-icons">power</span>
+                <h3>Grid Load & Demand</h3>
+                <div class="data-value">7.8 GW</div>
+                <div class="description"> Live power consumption across the grid.</div>
+            </div>
+            <div class="data-box">
+                <span class="material-icons">analytics</span>
+                <h3>Your Regional Population</h3>
+                <div class="data-value">6,50,240</div>
+                <div class="description">Updated weekly.</div>
+  
+            </div>
+        </div>
+    </div>
+
+    <!-- Second Row of Data -->
+    <div class="data-row">
+        <div class="data-grid-two-cols">
+            <div class="data-box-wide" style="background: #500909;">
+                <span class="material-icons" style="color:#ff0000">thermostat</span>
+                <h3 style="color:#ff0000" >Temperature</h3>
+                <div class="data-value" id='temperature-value' style="color:white">34° C</div>
+                <div class="description" style="color:rgb(193, 193, 193);">Real-time temperature readings greatly affected by Pollution.</div>
+            </div>
+            <div class="data-box-wide">
+                <span class="material-icons">
+energy_savings_leaf
+</span>
+                <h3>Carbon-Free Percentage</h3>
+                <div class="data-value">48.7%</div>
+                <div class="description">Share of electricity generated from non-emitting sources like solar, wind, hydro, and nuclear.</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Third Row of Data -->
+    <div class="data-row">
+        <div class="data-grid">
+            <div class="data-box">
+                <span class="material-icons">solar_power</span>
+                <h3>Solar Radiation</h3>
+                <div class="data-value" id="shortwave-value">1000 W/m²</div>
+                <div class="description">Sunlight intensity and UV index.</div>
+            </div>
+            <div class="data-box" style="background-color:#0b361a;">
+                <span class="material-icons"  style="color:#04ff00">forest</span>
+                <h3 style="color:#04ff00" >Forest Cover</h3>
+                <div class="data-value" style="color:white">56%</div>
+                <div class="description" style="color:rgb(193, 193, 193);" >Forest coverage rates in the region.</div>
+            </div>
+            <div class="data-box">
+                <span class="material-icons">public</span>
+                <h3>Health Recommendation</h3>
+                <div class="data-value" style="font-size: 34px;">Avoid Outdoors</div>
+                <div class="description"> during 12PM-4PM</div>
+            </div>
+            <div class="data-box">
+              <span class="material-icons">waves</span>
+                <h3>Sustainability Index</h3>
+                <div class="data-value">72.4/100</div>
+                <div class="description">Composite score reflecting regional carbon efficiency, pollution levels, and clean energy adoptions.</div>
+            </div>
+        </div>
+    </div>
+
+    <h2 style="text-align: left; margin-left:55px; color:#007BFF; font-size: 35px;margin-top: 40px;">Carbon & Energy</h2>
+    <div class="data-row">
+        <div class="data-grid">
+            <div class="data-box" style="background-color:#0b361a;">
+                <span  style="color:#04ff00" class="material-icons">electric_bolt</span>
+                <h3 style="color:#04ff00"> Grid Frequency</h3>
+                <div class="data-value"  style="color:white">49.98 Hz²</div>
+                <div class="description"  style="color:rgb(193, 193, 193);">Indicates grid stability.</div>
+            </div>
+            <div class="data-box">
+                <span class="material-icons">trending_down</span>
+                <h3>Transmission Losses</h3>
+                <div class="data-value">3.2%</div>
+                <div class="description">% of energy lost during transmission.</div>
+            </div>
+            <div class="data-box">
+                <span class="material-icons">public</span>
+                <h3>Capacity Utilisation</h3>
+                <div class="data-value">78%</div>
+                <div class="description">% of total generation capacity in use</div>
+            </div>
+            <div class="data-box">
+                <span class="material-icons">history</span>
+                <h3>Renewable Curtailment</h3>
+                <div class="data-value">1.4 MW</div>
+                <div class="description">Clean energy wasted due to grid constraints.</div>
+            </div>
+        </div>
+    </div>
+        <div class="data-row">
+        <div class="data-grid">
+            <div class="data-box">
+                <span class="material-icons">balance</span>
+                <h3>Load Factor</h3>
+                <div class="data-value">0.78</div>
+                <div class="description">Avg load / peak load ratio.</div>
+            </div>
+            <div class="data-box" style="background-color:#0b361a;">
+                <span class="material-icons"  style="color:#04ff00">offline_bolt</span>
+                <h3 style="color:#04ff00" >Energy Storage Status</h3>
+                <div class="data-value" style="color:white">76%</div>
+                <div class="description" style="color:rgb(193, 193, 193);" >Battery or hydro storage level.</div>
+            </div>
+            <div class="data-box">
+                <span class="material-icons">public</span>
+                <h3>Carbon Intensity Forecast</h3>
+                <div class="data-value" style="font-size: 38px;">412 gCO₂/kWh</div>
+                <div class="description">Predicted emissions per kWh</div>
+            </div>
+            <div class="data-box">
+                <span class="material-icons">analytics</span>
+                <h3>Peak Demand Time</h3>
+                <div class="data-value">6:30 PM</div>
+                <div class="description">Time of highest grid load.</div>
+            </div>
+        </div>
+    </div>
+        <div class="data-row">
+        <div class="data-grid">
+            <div class="data-box">
+                <span class="material-icons">arrow_drop_up</span>
+                <h3>Carbon Spike Risk</h3>
+                <div class="data-value">Moderate</div>
+                <div class="description">Probability of sudden intensity rise.</div>
+            </div>
+            <div class="data-box" style="background-color:#0b361a;">
+                <span class="material-icons"  style="color:#04ff00">forest</span>
+                <h3 style="color:#04ff00" >Grid Stress Index</h3>
+                <div class="data-value" style="color:white">68/100</div>
+                <div class="description" style="color:rgb(193, 193, 193);" >Composite score of load, frequency, losses</div>
+            </div>
+            <div class="data-box">
+                <span class="material-icons">public</span>
+                <h3>Energy Mix Volatility</h3>
+                <div class="data-value">12%</div>
+                <div class="description">Change in fuel mix over last 24h</div>
+            </div>
+            <div class="data-box">
+                <span class="material-icons">analytics</span>
+                <h3>Demand Forecast (Next Hour)</h3>
+                <div class="data-value">8.1 GW</div>
+                <div class="description">Predicted grid demand.</div>
+            </div>
+        </div>
+    </div>
+
+        <h2 style="text-align: left; margin-left:55px; color:#007BFF; font-size: 35px;margin-top: 40px;">Pollution & Sustainability</h2>
+    <div class="data-row">
+        <div class="data-grid">
+            <div class="data-box" style="background-color:#360b0b;">
+                <span  style="color:#ff0000" class="material-icons">opacity</span>
+                <h3 style="color:#ff0000"> Exposure Index</h3>
+                <div class="data-value"  style="color:white">47.2 / 10</div>
+                <div class="description"  style="color:rgb(193, 193, 193);">Composite score based on AQI + time outdoors</div>
+            </div>
+            <div class="data-box">
+                <span class="material-icons">subscript</span>
+                <h3>PM 2.5</h3>
+                <div class="data-value" id="pm25-value"  style="font-size: 28px;">3.2%</div>
+                <div class="description">% of energy lost during transmission.</div>
+            </div>
+            <div class="data-box">
+                <span class="material-icons">subscript</span>
+                <h3>PM 10</h3>
+                <div class="data-value" id="pm10-value"  style="font-size: 28px;">78%</div>
+                <div class="description">% of total generation capacity in use</div>
+            </div>
+            <div class="data-box">
+                <span class="material-icons">subscript</span>
+                <h3>NO₂</h3>
+                <div class="data-value" id="no2-value"  style="font-size: 28px;">38 ppb</div>
+                <div class="description">Emitted from vehicles and industrial combustion.</div>
+            </div>
+        </div>
+    </div>
+
+        <div class="data-row">
+        <div class="data-grid">
+            <div class="data-box">
+                <span class="material-icons">subscript</span>
+                <h3>SO₂</h3>
+                <div class="data-value" id="so2-value" style="font-size: 28px;">12 ppb</div>
+                <div class="description">From coal burning and industrial processes.</div>
+            </div>
+            <div class="data-box" style="background-color:#0b361a;">
+                <span class="material-icons"  style="color:#04ff00">subscript</span>
+                <h3 style="color:#04ff00" >CO</h3>
+                <div class="data-value" style="color:white; font-size: 28px;"id="co-value">0.9 ppm</div>
+                <div class="description" style="color:rgb(193, 193, 193);" >rom incomplete combustion (vehicles, stoves).</div>
+            </div>
+            <div class="data-box">
+                <span class="material-icons">public</span>
+                <h3>Station Name</h3>
+                <div class="data-value" id="station-name-value" style="font-size: 17px; line-height: 0.878; margin-bottom: 10px;">Palam Monitoring Station</div>
+                <div class="description">Closest near you.</div>
+            </div>
+            <div class="data-box">
+                <span class="material-icons">subscript</span>
+                <h3>O₃ (Ozone)</h3>
+                <div class="data-value" id="o3-value" style="font-size: 28px;">41 ppb</div>
+                <div class="description">Secondary pollutant formed in sunlight.</div>
+            </div>
+        </div>
+    </div>
+<script>
+async function updateCoordinatesFile() {
+  if (!navigator.geolocation) {
+    console.error('Geolocation not supported');
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(async (position) => {
+    const coords = {
+      lat: position.coords.latitude,
+      lon: position.coords.longitude
+    };
+
+    try {
+      await fetch('/update-coordinates', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(coords)
+      });
+      console.log('Coordinates file updated');
+    } catch (error) {
+      console.error('Error updating coordinates file:', error);
+    }
+  }, (error) => {
+    console.error('Geolocation error:', error);
+  });
+}
+
+
+
+  async function fetchCarbonIntensity() {
+    if (!navigator.geolocation) {
+      console.error('Geolocation not supported');
+      document.getElementById('carbon-intensity-value').textContent = 'Unavailable';
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(async (position) => {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+
+      try {
+        const response = await fetch(`/carbon-log`);
+const data = await response.json();
+const latest = JSON.parse(data.log);
+document.getElementById('carbon-intensity-value').textContent = `${latest.carbon_intensity} gCO₂/kWh`;
+      } catch (error) {
+        console.error('Error fetching carbon intensity:', error);
+        document.getElementById('carbon-intensity-value').textContent = 'Unavailable';
+      }
+    }, (error) => {
+      console.error('Geolocation error:', error);
+      document.getElementById('carbon-intensity-value').textContent = 'Unavailable';
+    });
+  }
+
+
+async function fetchAQI2Log() {
+  try {
+    const response = await fetch('/aqi2-log');
+    const data = await response.json();
+
+    document.getElementById('aqi-value').textContent = data.aqi;
+    document.getElementById('station-name-value').textContent = data.station_name;
+  } catch (error) {
+    console.error('Error fetching AQI2 log:', error);
+  }
+}
+
+async function fetchAirqLog() {
+  try {
+    const response = await fetch('/airq-log');
+    const data = await response.json();
+
+
+    document.getElementById('pm25-value').textContent = data.pm2_5 + ' µg/m³';
+    document.getElementById('pm10-value').textContent = data.pm10 + ' µg/m³';
+    document.getElementById('no2-value').textContent = data.no2 + ' ppb';
+    document.getElementById('so2-value').textContent = data.so2 + ' ppb';
+    document.getElementById('co-value').textContent = data.co + ' ppm';
+    document.getElementById('o3-value').textContent = data.o3 + ' ppb';
+  } catch (error) {
+    console.error('Error fetching airq log:', error);
+  }
+}
+async function fetchSotemLog() {
+  try {
+    const response = await fetch('/sotem-log');
+    const data = await response.json();
+
+    document.getElementById('temperature-value').textContent = data.temperature + ' °C';
+    document.getElementById('shortwave-value').textContent = data.shortwave_radiation + ' W/m²';
+
+  } catch (error) {
+    console.error('Error fetching solar/temperature log:', error);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  fetchSotemLog();
+});
+document.addEventListener("DOMContentLoaded", () => {
+ updateCoordinatesFile();
+  fetchCarbonIntensity();
+  fetchAirqLog();
+   fetchAQI2Log(); 
+   fetchSotemLog()
+});
+</script>
+    <script>
+        const geoCoords = document.getElementById('geo-coords');
+        const geoLabel = document.getElementById('geo-label');
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const lat = position.coords.latitude.toFixed(4);
+                    const lon = position.coords.longitude.toFixed(4);
+
+                    geoCoords.textContent = `${lat}° N, ${lon}° E`;
+
+                    // Reverse geocode using OpenStreetMap Nominatim
+                    fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`)
+                        .then(res => res.json())
+                        .then(data => {
+                            const place = data.address?.suburb || data.address?.city || data.address?.town || "your area";
+                            const country = data.address?.country || "";
+                            geoLabel.textContent = `Near ${place}, ${country}`;
+                        })
+                        .catch(() => {
+                            geoLabel.textContent = `Unable to determine region.`;
+                        });
+                },
+                () => {
+                    geoCoords.textContent = "Location: N/A";
+                    geoLabel.textContent = "Region: Location permission denied.";
+                }
+            );
+        } else {
+            geoCoords.textContent = "Location: N/A";
+            geoLabel.textContent = "Region: Geolocation not supported by browser.";
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<body>
+    <h2 id="service-title">Loading...</h2>
+    <div id="service-data">Fetching data...</div>
+
+    <script>
+    const params = new URLSearchParams(window.location.search);
+    const service = params.get("service");
+
+    navigator.geolocation.getCurrentPosition(function(position) {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+
+        const apiUrl = `/${service}?lat=${lat}&lon=${lon}`;
+
+        fetch(apiUrl)
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById("service-title").textContent = service.toUpperCase();
+
+                if (service === "carbon") {
+    document.getElementById("service-data").innerHTML = `
+        <p><strong>Status:</strong> ${data.status_label}</p>
+        <p><strong>Intensity:</strong> ${data.carbon_intensity} gCO₂/kWh</p>
+        <p><strong>Recommendation:</strong> ${data.recommendation}</p>
+        <p><strong>Timestamp:</strong> ${data.timestamp}</p>
+                <p><strong>Diff:</strong> ${data.diff}</p>
+        <hr>
+        <h3>Fuel Mix Breakdown</h3>
+        <ul>
+            
+            <li><strong>Coal:</strong> ${data.coal} MW</li>
+            <li><strong>Solar:</strong> ${data.solar} MW</li>
+            <li><strong>Wind:</strong> ${data.wind} MW</li>
+            <li><strong>Fossil Gas:</strong> ${data.fossil_gas} MW</li>
+            <li><strong>Hydro:</strong> ${data.hydro} MW</li>
+            <li><strong>Nuclear:</strong> ${data.nuclear} MW</li>
+            <li><strong>Biomass:</strong> ${data.biomass} MW</li>
+        </ul>
+    `;
+}
+            });
+    });
+    </script>
+</body>

@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZAWN</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        html{
+            scroll-behavior: smooth;
+        }
+        #myNav {
+            width: 100%;
+            height: 80px;
+            border-bottom: #333;
+            color: rgb(0, 0, 0);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+        #logo {
+            margin-top: 20px;
+            margin-left: 20px;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+            font-weight: 500;
+            font-size: 18px;
+            margin-right: 30px;
+        }
+        a:hover {
+            color: #007BFF;
+        }
+        #links {
+            margin-top: 35px;
+            margin-right: 20px;
+            display: flex;
+            gap: 42px;
+            align-items: center;
+        }
+        .container {
+            display: flex;
+            flex-direction: row;
+            margin-top: 35px;
+            flex-grow: 1;
+            align-items: center;
+            padding: 30px;
+        }
+        .left-content {
+            flex: 1;
+            padding-left: 60px;
+        }
+        .right-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .right-image img {
+            width: 100%;
+            height: auto;
+            max-width: 600px; /* Optional: to prevent the image from getting too large */
+        }
+        h1 {
+            text-align: left;
+            color: #007BFF;
+            line-height: 0.98;
+            font-size: 65px;
+            font-weight: 300;
+        }
+        p {
+            margin-top: 10px;
+            font-size: 30px;
+            font-weight: 600;
+            color: #000000;
+        }
+        .p-italic {
+            margin-top: 30px;
+            font-style: italic;
+            font-size: 22px;
+            color: #555;
+        }
+        button {
+            margin-top: 25px;
+            background-color: #041626;
+            color: white;
+            border: 2px solid #041626;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 15px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        /* Responsive design for main section */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                text-align: center;
+            }
+            .left-content {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+            .right-image {
+                margin-top: 20px;
+            }
+            h1 {
+                font-size: 45px;
+            }
+            p {
+                font-size: 22px;
+            }
+            .p-italic {
+                font-size: 18px;
+            }
+            #myNav {
+                height: auto;
+                flex-direction: column;
+                padding-top: 10px;
+                padding-bottom: 10px;
+            }
+            #links {
+                margin-top: 10px;
+                margin-right: 0;
+                gap: 20px;
+            }
+            #logo {
+                margin-top: 0;
+                margin-left: 0;
+            }
+        }
+
+        /* Features Section Styles */
+        #features {
+            padding: 120px 20px;
+            text-align: center;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            max-width: 1200px;
+            margin: 40px auto;
+        }
+        .feature-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            border: 1px solid black;
+            border-radius: 12px;
+            box-sizing: border-box;
+        }
+        .feature-box .material-icons {
+            font-size: 60px;
+            color: #007BFF;
+            margin-bottom: 15px;
+        }
+        .feature-box h2 {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0 0 10px 0;
+        }
+        .feature-box p {
+            font-size: 16px;
+            font-weight: 400;
+            color: #555;
+            margin: 0;
+            text-align: center;
+            line-height: 1.4;
+        }
+        /* Responsive design for features grid */
+        @media (max-width: 1024px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 600px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* How it Works Section Styles */
+        #howit {
+            padding: 60px 20px;
+            background-color: #f9f9f9;
+        }
+        #howit h2 {
+            font-weight: 550;
+            font-size: 40px;
+            padding-bottom: 30px;
+            text-align: center;
+        }
+        .how-it-works-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 60px;
+            max-width: 1000px;
+            margin: 40px auto;
+        }
+        .how-it-works-step {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            padding: 50px;
+            border-radius: 12px;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+        }
+        .step-content {
+            text-align: left;
+            flex-grow: 1;
+        }
+        .step-content h3 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #007BFF;
+            margin: 0 0 10px 0;
+        }
+        .step-content p {
+            font-size: 18px;
+            font-weight: 400;
+            color: #555;
+            margin: 0;
+            line-height: 1.4;
+        }
+        .icon-circle {
+            width: 100px;
+            height: 100px;
+            background-color: #041626;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .icon-circle .material-icons {
+            font-size: 50px;
+            color: white;
+        }
+
+        /* About Us Section Styles */
+        #about {
+            padding: 80px 60px;
+            background-color: #ffffff;
+            margin-top: 40px;
+        }
+        #about h2 {
+            font-weight: 550;
+            font-size: 45px;
+            margin-bottom: 20px;
+        }
+        .about-container {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .about-text {
+            flex: 1;
+            text-align: left;
+        }
+        .about-text p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #555;
+            margin-top: 0;
+            font-weight: 400;
+        }
+        .about-logo-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .about-logo-container img {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 12px;
+        }
+        @media (max-width: 768px) {
+            .how-it-works-step, .about-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            .step-content, .about-text {
+                text-align: center;
+            }
+            .icon-circle {
+                margin-bottom: 20px;
+            }
+            #about {
+                padding: 40px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+        <script>
+        // Check if user is logged in, otherwise redirect to login page
+        if (localStorage.getItem('user')) {
+            window.location.href = '/home';
+        }
+    </script>
+    <nav id="myNav">
+        <div style="display: flex; align-items: center; width: 100%; justify-content: space-between;">
+            <div style="display: flex; align-items: center;">
+                <img src="res/logo.svg" id="logo" alt="Logo" style="height: 54px; margin-right: 16px; display: block;">
+            </div>
+            <div id="links">
+                <a href="#features">Features</a>
+                <a href="#howit">How it Works</a>
+                <a href="#about">About Us</a>
+                <a href="/login">Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="left-content">
+            <h1>Discover. <b>Know.</b><br><b style="font-weight: 600;"><i>Document.</i></b></h1>
+            <p>Carbon isn’t just a number. It’s a signal. A verdict. A legacy.</p>
+            <p class="p-italic">Explore your region. Compare the grid. Witness the silence.</p>
+            <button onclick="location.href='/services'">Get Started</button>
+        </div>
+        <div class="right-image">
+            <img src="res/undraw_growth-analytics_bhy7.svg" alt="Main Image">
+        </div>
+    </div>
+
+    <section id="features">
+        <h2 style="font-weight: 550; font-size: 40px; padding-bottom: 30px;">Features</h2>
+        <div class="features-grid">
+            <div class="feature-box">
+                <span class="material-icons">cloud_upload</span>
+                <h2>Data Integration</h2>
+                <p>Seamlessly integrate with public and private data sources.</p>
+            </div>
+            <div class="feature-box">
+                <span class="material-icons">bar_chart</span>
+                <h2>Advanced Analytics</h2>
+                <p>Gain deep insights with powerful and intuitive data visualizations.</p>
+            </div>
+            <div class="feature-box">
+                <span class="material-icons">trending_up</span>
+                <h2>Real-time Monitoring</h2>
+                <p>Track carbon emissions and grid usage in real time.</p>
+            </div>
+            <div class="feature-box">
+                <span class="material-icons">source</span>
+                <h2>Signal Provenance</h2>
+                <p>Know where every data point comes from.</p>
+            </div>
+            <div class="feature-box">
+                <span class="material-icons">share</span>
+                <h2>Collaborative Reports</h2>
+                <p>Share and collaborate on reports with your team and partners.</p>
+            </div>
+            <div class="feature-box">
+                <span class="material-icons">notifications</span>
+                <h2>Custom Alerts</h2>
+                <p>Receive notifications for critical changes in your monitored metrics.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="howit">
+        <h2>How It Works</h2>
+        <div class="how-it-works-grid">
+            <div class="how-it-works-step">
+                <div class="step-content">
+                    <h3><strong style="color: #007BFF;">01:</strong> Stream the Signals</h3>
+                    <p>Our system connects to live data feeds, collecting real-time environmental signals like air quality and energy grid status.</p>
+                </div>
+                <div class="icon-circle">
+                    <span class="material-icons">cloud_queue</span>
+                </div>
+            </div>
+            <div class="how-it-works-step">
+                <div class="step-content">
+                    <h3><strong style="color: #007BFF;">02:</strong> Decode the Verdicts</h3>
+                    <p>We analyze the raw data and convert it into understandable metrics and verdicts on carbon intensity and environmental impact.</p>
+                </div>
+                <div class="icon-circle">
+                    <span class="material-icons">lightbulb</span>
+                </div>
+            </div>
+            <div class="how-it-works-step">
+                <div class="step-content">
+                    <h3><strong style="color: #007BFF;">03:</strong> Document & Learn</h3>
+                    <p>All processed information is securely documented and presented in clear, actionable reports for you to track and learn from.</p>
+                </div>
+                <div class="icon-circle">
+                    <span class="material-icons">library_books</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="about-container">
+            <div class="about-text">
+                <h2>About Us</h2>
+                <p>ZAWN is at the forefront of carbon accountability. We believe that understanding and documenting our environmental impact is the first step toward a sustainable future. Our platform provides the tools to monitor, analyze, and report on key environmental signals, empowering businesses and individuals to make informed decisions that matter.</p>
+
+                <p>Made by <b>PRAJWAL .</b>(Also known as Innovative Challenger) for a project.</p>
+            </div>
+            <div class="about-logo-container">
+                <img src="res/logo.svg" alt="ZAWN Logo Placeholder">
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
