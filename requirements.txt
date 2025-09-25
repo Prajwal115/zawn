@@ -1,4 +1,5 @@
 fastapi
+pathway
 uvicorn
 jinja2
 python-multipart
