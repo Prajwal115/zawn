@@ -93,7 +93,7 @@ class CarbonConnector(ConnectorSubject):
                 lat, lon = 28.6145, 77.2078
 
             url = f"https://api.electricitymaps.com/v3/carbon-intensity/latest?lat={lat}&lon={lon}"
-            headers = {"auth-token": "GKyP7cMM5TN4fgAzbRUK"}
+            headers = {"auth-token": "AUTH_TOKEN"}
 
             try:
                 response = requests.get(url, headers=headers)
