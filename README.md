@@ -47,7 +47,7 @@ Pathway acts as the backbone for ZAWN’s signal pipeline—ensuring clarity, mo
 
 ## 🚀 Deployment
 
-- Hosted on [Render](https://zawn.render.com)
+- Hosted on [Render](https://zawn.render.com) (https://zawn.render.com)
 - API keys stored securely via Render environment variables
 - `requirements.txt` included for dependency management
 
@@ -77,3 +77,9 @@ pip install -r requirements.txt
 4. uvicorn main:app --host 0.0.0.0 --port 10000
 5. It will run on your localhost.
 6. Test various connections like ```http://localhost:8000/aqi```,  ```http://localhost:8000/airq```
+
+## About
+Made by Prajwal - a curious developer and a UI UX designer for a project. Also known as Innovative Challenger.
+
+Signing off,
+Prajwal
