@@ -22,6 +22,7 @@ Designed for researchers, responders, and clarity-seekers, ZAWN transforms fragm
 - **Coordinate-aware ingestion** for region-specific insights.
 - **Fallback logic** and teardown philosophy for mocked data and API failures.
 
+
 ---
 
 ## ⚙️ Process
@@ -59,7 +60,7 @@ Pathway acts as the backbone for ZAWN’s signal pipeline—ensuring clarity, mo
 - Region-aware dashboard wired to Delhi
 - Sustainability index logic (mocked but modular)
 - Honest fallback tiles for unavailable signals
-
+- **[Coming Soon] Simulations** by modifying parameters and then getting simulated results.
 ---
 
 ## 📁 How to run it
