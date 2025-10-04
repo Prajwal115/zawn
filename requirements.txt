@@ -9,4 +9,4 @@ requests
 aiohttp
 httpx
 python-dotenv
-google-generativeai
+google-generativeai==0.4.1
