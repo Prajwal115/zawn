@@ -1,220 +1,240 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZAWN | Browse</title>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
-        body {
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            background-color: #F8F8F8;
-        }
-
-        a {
-            text-decoration: none;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        #myNav {
-            width: 100%;
-            height: 80px;
-            border-bottom: #333;
-            color: rgb(0, 0, 0);
-            display: flex;
-            align-items: center;
-            padding: 0 20px;
-            box-sizing: border-box;
-        }
-
-        #logo {
-            margin-top: 20px;
-            margin-left: 20px;
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-            font-weight: 500;
-            font-size: 18px;
-            margin-right: 30px;
-        }
-
-        a:hover {
-            color: #007BFF;
-        }
-
-        #links {
-            margin-top: 35px;
-            margin-right: 20px;
-            display: flex;
-            gap: 42px;
-            align-items: center;
-        }
-        
-        .main-content-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            flex-grow: 1;
-            transform: translateY(-20%);
-            padding: 60px 20px;
-        }
-
-        .coords-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 100px; /* A lot of margin */
-        }
-        
-        .coords-section h1 {
-            font-size: 45px;
-            color: #007BFF;
-            font-weight: 550;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .coords-form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            align-items: center;
-        }
-
-        .input-group {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            width: 100%;
-        }
-
-        .input-group input {
-            width: 150px;
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            font-size: 16px;
-        }
-
-        .submit-button {
-            padding: 10px 20px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .submit-button:hover {
-            background-color: #0056b3;
-        }
-
-        @media (max-width: 768px) {
-            #myNav {
-                height: auto;
-                flex-direction: column;
-                padding-top: 10px;
-                padding-bottom: 10px;
-            }
-
-            #links {
-                margin-top: 10px;
-                margin-right: 0;
-                gap: 20px;
-            }
-
-            #logo {
-                margin-top: 0;
-                margin-left: 0;
-            }
-
-            .coords-section h1 {
-                font-size: 32px;
-            }
-
-            .input-group {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .input-group input {
-                width: 80%;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ZAWN | Historical Graphs</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #F8F8F8;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+      font-weight: 500;
+      font-size: 18px;
+      margin-right: 30px;
+    }
+    a:hover {
+      color: #007BFF;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    #myNav {
+      width: 100%;
+      height: 80px;
+      border-bottom: #333;
+      color: rgb(0, 0, 0);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      box-sizing: border-box;
+    }
+    #logo {
+      margin-top: 20px;
+      margin-left: 20px;
+    }
+    #links {
+      margin-top: 35px;
+      margin-right: 20px;
+      display: flex;
+      gap: 42px;
+      align-items: center;
+    }
+    .graph-container {
+      width: 90%;
+      max-width: 800px;
+      margin: 40px auto;
+    }
+    h2 {
+      text-align: center;
+      font-weight: 600;
+      color: #333;
+      margin-top: 60px;
+    }
+    @media (max-width: 768px) {
+      #myNav {
+        height: auto;
+        flex-direction: column;
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+      #links {
+        margin-top: 10px;
+        margin-right: 0;
+        gap: 20px;
+      }
+      #logo {
+        margin-top: 0;
+        margin-left: 0;
+      }
+    }
+  </style>
 </head>
 <body>
-    <script>
-        // Check if user is logged in, otherwise redirect to login page
-        if (!localStorage.getItem('user')) {
-            window.location.href = '/login';
-        }
-    </script>
-    <nav id="myNav">
-        <div style="display: flex; align-items: center; width: 100%; justify-content: space-between;">
-            <div style="display: flex; align-items: center;">
-                <a href="/">
-                    <img src="res/logo.svg" id="logo" alt="Logo" style="height: 54px; margin-right: 16px; display: block;">
-                </a>
-            </div>
-            <div id="links">
-                <a href="#browse">Browse Regions</a>
+  <script>
+    if (!localStorage.getItem('user')) {
+      window.location.href = '/login';
+    }
+  </script>
+  <nav id="myNav">
+    <div style="display: flex; align-items: center; width: 100%; justify-content: space-between;">
+      <div style="display: flex; align-items: center;">
+        <a href="/">
+          <img src="res/logo.svg" id="logo" alt="Logo" style="height: 54px; margin-right: 16px; display: block;">
+        </a>
+      </div>
+      <div id="links">
+        <a href="/graph">Historical Charts</a>
+        <a href="/simulate">Simulate</a>
+        <a href="/logout">Logout</a>
+      </div>
+    </div>
+  </nav>
 
-                <a href="#settings">Settings</a>
-                <a href="/logout">Logout</a>
-            </div>
-        </div>
-    </nav>
-<div style="width: 90%; max-width: 800px; margin: 60px auto;">
-    <h2 style="text-align: center; font-weight: 600; color: #333;">Carbon Intensity Over Time</h2>
+  <div class="graph-container">
+    <h2>Carbon Intensity Over Time</h2>
     <div id="carbonGraph"></div>
+  </div>
+
+
+
+  <div class="graph-container">
+    <h2>Solar Radiation & Temperature</h2>
+    <div id="solarTempGraph"></div>
+  </div>
+
+  <div class="graph-container">
+    <h2>Air Quality Breakdown</h2>
+    <div id="aqiBreakdownGraph"></div>
+  </div>
+<div class="graph-container">
+  <h2>Grid Load Over Time</h2>
+  <div id="gridLoadGraph"></div>
 </div>
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-<script>
+  <script>
     async function loadCarbonGraph() {
-        const res = await fetch('/carbon-graph-data');
-        const data = await res.json();
+      const res = await fetch('/carbon-graph-data');
+      const data = await res.json();
+      const timestamps = data.map(entry => entry.timestamp);
+      const intensities = data.map(entry => entry.carbon_intensity);
 
-        const timestamps = data.map(entry => entry.timestamp);
-        const intensities = data.map(entry => entry.carbon_intensity);
-
-        const trace = {
-            x: timestamps,
-            y: intensities,
-            type: 'scatter',
-            mode: 'lines+markers',
-            line: { color: '#007BFF' },
-            marker: { size: 6 },
-            name: 'Carbon Intensity'
-        };
-
-        const layout = {
-            xaxis: { title: 'Time' },
-            yaxis: { title: 'Carbon Intensity (gCO₂/kWh)' },
-            margin: { t: 40, b: 60 },
-            plot_bgcolor: '#F8F8F8',
-            paper_bgcolor: '#F8F8F8'
-        };
-
-        Plotly.newPlot('carbonGraph', [trace], layout);
+      Plotly.newPlot('carbonGraph', [{
+        x: timestamps,
+        y: intensities,
+        type: 'scatter',
+        mode: 'lines+markers',
+        line: { color: '#007BFF' },
+        marker: { size: 6 },
+        name: 'Carbon Intensity'
+      }], {
+        xaxis: { title: 'Time' },
+        yaxis: { title: 'gCO₂/kWh' },
+        margin: { t: 40, b: 60 },
+        plot_bgcolor: '#F8F8F8',
+        paper_bgcolor: '#F8F8F8'
+      });
     }
 
-    loadCarbonGraph();
-</script>
+
+    async function loadSolarTempGraph() {
+      const res = await fetch('/sotem-log');
+      const data = await res.json();
+      const timestamps = [data.timestamp];
+      const temperature = [data.temperature];
+      const radiation = [data.shortwave_radiation];
+
+      Plotly.newPlot('solarTempGraph', [
+        {
+          x: timestamps,
+          y: temperature,
+          type: 'scatter',
+          mode: 'lines+markers',
+          name: 'Temperature (°C)',
+          line: { color: '#FF5733' }
+        },
+        {
+          x: timestamps,
+          y: radiation,
+          type: 'scatter',
+          mode: 'lines+markers',
+          name: 'Shortwave Radiation (W/m²)',
+          line: { color: '#007BFF' }
+        }
+      ], {
+        xaxis: { title: 'Time' },
+        yaxis: { title: 'Value' },
+        margin: { t: 40, b: 60 },
+        plot_bgcolor: '#F8F8F8',
+        paper_bgcolor: '#F8F8F8'
+      });
+    }
+
+    async function loadAQIBreakdownGraph() {
+      const res = await fetch('/airq-log');
+      const data = await res.json();
+      const pollutants = ['pm2_5', 'pm10', 'no2', 'so2', 'co', 'o3'];
+      const values = pollutants.map(p => data[p]);
+
+      Plotly.newPlot('aqiBreakdownGraph', [{
+        x: pollutants.map(p => p.toUpperCase()),
+        y: values,
+        type: 'bar',
+        marker: { color: '#28a745' }
+      }], {
+        xaxis: { title: 'Pollutants' },
+        yaxis: { title: 'Concentration' },
+        margin: { t: 40, b: 60 },
+        plot_bgcolor: '#F8F8F8',
+        paper_bgcolor: '#F8F8F8'
+      });
+    }
+async function loadGridLoadGraph() {
+  const res = await fetch('/grid-log');
+  const data = await res.json();
+  const timestamps = [data.timestamp];
+  const estimatedLoad = [data.estimated_load_mw];
+  const adjustedLoad = [data.adjusted_for_temperature];
+
+  Plotly.newPlot('gridLoadGraph', [
+    {
+      x: timestamps,
+      y: estimatedLoad,
+      type: 'scatter',
+      mode: 'lines+markers',
+      name: 'Estimated Load (MW)',
+      line: { color: '#6c757d' }
+    },
+    {
+      x: timestamps,
+      y: adjustedLoad,
+      type: 'scatter',
+      mode: 'lines+markers',
+      name: 'Adjusted for Temperature (MW)',
+      line: { color: '#17a2b8' }
+    }
+  ], {
+    xaxis: { title: 'Time' },
+    yaxis: { title: 'Load (MW)' },
+    margin: { t: 40, b: 60 },
+    plot_bgcolor: '#F8F8F8',
+    paper_bgcolor: '#F8F8F8'
+  });
+}
+loadCarbonGraph();
+loadSolarTempGraph();
+loadAQIBreakdownGraph();
+loadGridLoadGraph();
+  </script>
 </body>
 </html>
