@@ -280,7 +280,7 @@
             <div id="links">
 
                 <a href="/graph">Historical Charts</a>
-                <a href="#settings">Settings</a>
+                <a href="/simulate">Simulate</a>
                 <a href="/logout">Logout</a>
             </div>
         </div>
@@ -328,14 +328,14 @@
             <div class="data-box">
                 <span class="material-icons">power</span>
                 <h3>Grid Load & Demand</h3>
-                <div class="data-value">7.8 GW</div>
+                <div class="data-value" id="grid-load-value">7.8 GW</div>
                 <div class="description"> Live power consumption across the grid.</div>
             </div>
             <div class="data-box">
                 <span class="material-icons">analytics</span>
                 <h3>Your Regional Population</h3>
-                <div class="data-value">6,50,240</div>
-                <div class="description">Updated weekly.</div>
+                <div class="data-value" id="population-value">6,50,240</div>
+                <div class="description">Updated frequently.</div>
   
             </div>
         </div>
@@ -535,6 +535,65 @@ energy_savings_leaf
             </div>
         </div>
     </div>
+
+        <h2 style="text-align: left; margin-left:55px; color:#007BFF; font-size: 35px;margin-top: 40px;">Water & Related</h2>
+    <div class="data-row">
+        <div class="data-grid">
+            <div class="data-box" style="background-color:#0e0b36;">
+                <span  style="color:#8988b6" class="material-icons">water_drop</span>
+                <h3 style="color:#8988b6"> Rainfall Intensity</h3>
+                <div class="data-value"  style="color:white">38 mm/hr</div>
+                <div class="description"  style="color:rgb(193, 193, 193);">Measures how much rain falls per hour.</div>
+            </div>
+            <div class="data-box">
+                <span class="material-icons">water_drop</span>
+                <h3>Flood Risk Index</h3>
+                <div class="data-value"  style="font-size: 28px;">0.67</div>
+                <div class="description">Composite score (0–1) based on elevation, rainfall, etc.</div>
+            </div>
+            <div class="data-box">
+                <span class="material-icons">water</span>
+                <h3>Groundwater Level</h3>
+                <div class="data-value" style="font-size: 28px;">12.4 m</div>div>
+                <div class="description">Depth of water below surface.</div>
+            </div>
+            <div class="data-box">
+                <span class="material-icons">subscript</span>
+                <h3>Surface Water Area</h3>
+                <div class="data-value"style="font-size: 28px;">5.2 km²</div>
+                <div class="description">Total area of lakes, rivers, and ponds</div>
+            </div>
+        </div>
+    </div>
+
+        <div class="data-row">
+        <div class="data-grid">
+            <div class="data-box">
+                <span class="material-icons">subscript</span>
+                <h3>Drainage Efficiency</h3>
+                <div class="data-value"  style="font-size: 28px;">42%</div>
+                <div class="description">Percentage of rainfall that exits the region efficiently.</div>
+            </div>
+            <div class="data-box" style="background-color:#0b361a;">
+                <span class="material-icons"  style="color:#04ff00">subscript</span>
+                <h3 style="color:#04ff00" >Water Stress Score</h3>
+                <div class="data-value" style="color:white; font-size: 28px;">81</div>
+                <div class="description" style="color:rgb(193, 193, 193);" >Shows how much demand exceeds water availability.</div>
+            </div>
+            <div class="data-box">
+                <span class="material-icons">public</span>
+                <h3>Reservoir Capacity</h3>
+                <div class="data-value" style="font-size: 17px; line-height: 0.878; margin-bottom: 10px;">63%</div>
+                <div class="description">Current fill level of major reservoirs. </div>
+            </div>
+            <div class="data-box">
+                <span class="material-icons">subscript</span>
+                <h3>Urban Runoff Index</h3>
+                <div class="data-value" style="font-size: 28px;">0.68</div>
+                <div class="description">Ratio of rainfall that becomes surface runoff.</div>
+            </div>
+        </div>
+    </div>
 <script>
 async function updateCoordinatesFile() {
   if (!navigator.geolocation) {
@@ -605,6 +664,17 @@ async function fetchAQI2Log() {
     console.error('Error fetching AQI2 log:', error);
   }
 }
+async function fetchPopulationLog() {
+  try {
+    const response = await fetch('/population-log');
+    const data = await response.json();
+
+    document.getElementById('population-value').textContent = data.population;
+
+  } catch (error) {
+    console.error('Error fetching population log:', error);
+  }
+}
 
 async function fetchAirqLog() {
   try {
@@ -634,7 +704,18 @@ async function fetchSotemLog() {
     console.error('Error fetching solar/temperature log:', error);
   }
 }
+async function fetchGridLog() {
+  try {
+    const response = await fetch('/grid-log');
+    const data = await response.json();
 
+    document.getElementById('grid-load-value').textContent = `${data.estimated_load_mw} MW`;
+    document.getElementById('temp-adjustment-value').textContent = `${data.adjusted_for_temperature} MW`;
+    document.getElementById('solar-offset-value').textContent = `${data.solar_offset_applied}%`;
+  } catch (error) {
+    console.error('Error fetching grid log:', error);
+  }
+}
 document.addEventListener("DOMContentLoaded", () => {
   fetchSotemLog();
 });
@@ -643,7 +724,9 @@ document.addEventListener("DOMContentLoaded", () => {
   fetchCarbonIntensity();
   fetchAirqLog();
    fetchAQI2Log(); 
-   fetchSotemLog()
+   fetchSotemLog();
+   fetchPopulationLog()
+   fetchGridLog()
 });
 </script>
     <script>
