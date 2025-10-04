@@ -5,7 +5,7 @@ import os
 
 aqiapi2 = APIRouter()
 
-API_TOKEN = "API_KEY2"
+API_TOKEN = os.getenv("API_KEY2")
 COORDS_FILE = "coords.json"
 LOG_FILE = "aqi2.jsonl"
 
