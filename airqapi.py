@@ -4,7 +4,7 @@ import json
 import os
 
 airqapi = APIRouter()
-API_KEY = "API_KEY1"
+API_KEY = os.getenv("API_KEY1")
 COORDS_FILE = "coords.json"
 LATEST_FILE = "airq_latest.json"
 
