@@ -159,8 +159,9 @@ def get_latest_grid_log():
 from fastapi import Request
 from fastapi.responses import JSONResponse
 import json
+
 import google.generativeai as genai
-GEMINI_API_KEY = "AIzaSyBl_DfGOAeTq81UFNtmd1gNiWZ-EawoBhc"  # Replace with your actual API key
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY") # Replace with your actual API key
 genai.configure(api_key=GEMINI_API_KEY)
 gemini_model = genai.GenerativeModel("gemini-2.0-flash")
 
